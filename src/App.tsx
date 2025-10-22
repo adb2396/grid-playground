@@ -1,25 +1,45 @@
 import './App.css'
 import { PropertyPanel } from '@/components/PropertyPanel'
-import { Separator } from './components/ui/separator'
+import { Moon, Sun } from 'lucide-react'
+import { Button } from './components/ui/button'
+import { useEffect, useState } from 'react'
+import { GridContainer } from './components/GridContainer'
 
 function App() {
+	const [isDark, setIsDark] = useState(false)
+
+	useEffect(() => {
+		if (isDark) {
+			document.documentElement.classList.add('dark')
+		} else {
+			document.documentElement.classList.remove('dark')
+		}
+	}, [isDark])
+
 	return (
 		<div className="flex flex-col h-screen">
 			{/* Header */}
-			<header className="h-16 bg-primary shadow-sm flex items-center p-4 gap-2">
-				<h1 className="text-xl font-semibold text-primary-foreground">CSS Grid Playground</h1>
-				<Separator orientation="vertical" className="w-1 bg-primary-foreground/20" />
-				<span className="text-xs text-primary-foreground/80">
-					A tool for learning and experimenting with CSS Grid
-				</span>
+			<header className="h-16 bg-card border-b border-border flex items-center justify-between px-6 gap-4">
+				<div className="flex items-center gap-3">
+					<h1 className="text-xl font-semibold text-primary">CSS Grid Playground</h1>
+					<div className="h-6 w-px bg-muted-foreground/40" />
+					<span className="text-sm text-muted-foreground">Learn and experiment with CSS Grid</span>
+				</div>
+
+				{/* Dark Mode Toggle */}
+				<Button
+					variant="ghost"
+					size="icon"
+					onClick={() => setIsDark(!isDark)}
+					aria-label="Toggle dark mode"
+				>
+					{isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+				</Button>
 			</header>
 
-			<div className="w-full h-[calc(100vh-64px)] flex">
-				{/* Sidebar - Property Panel */}
+			<div className="flex-1 flex">
 				<PropertyPanel />
-
-				{/* Grid Container */}
-				<main className="flex-1"></main>
+				<GridContainer />
 			</div>
 		</div>
 	)

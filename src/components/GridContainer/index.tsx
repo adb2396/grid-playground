@@ -1,26 +1,37 @@
+import { Plus } from 'lucide-react'
 import React from 'react'
+import { Button } from '../ui/button'
+import { Label } from '../ui/label'
+import { Switch } from '../ui/switch'
 
 export const GridContainer: React.FC = () => {
 	return (
-		<div className="w-full h-full p-8 bg-gray-50">
-			<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 h-full">
-				<h2 className="text-lg font-semibold text-gray-900 mb-4">Grid Preview</h2>
-
-				{/* Grid Container */}
-				<div className="bg-gray-50 border-2 border-dashed border-gray-300 rounded-lg p-4 min-h-[400px]">
-					<div className="grid grid-cols-3 gap-4">
-						{/* Grid Items */}
-						{[1, 2, 3, 4, 5, 6].map((item) => (
-							<div
-								key={item}
-								className="bg-blue-50 border-2 border-blue-200 rounded-md p-4 text-center hover:border-blue-400 transition-colors cursor-pointer"
-							>
-								<span className="text-gray-700 font-medium">Item {item}</span>
-							</div>
-						))}
+		<main className="flex-1 flex flex-col bg-muted/60">
+			{/* Toolbar */}
+			<div className="h-14 flex items-center justify-between px-4 gap-4">
+				<div className="flex items-center gap-2">
+					<Button variant="default" size="sm">
+						<Plus className="h-4 w-4 mr-1" />
+						Add Container
+					</Button>
+				</div>
+				<div className="flex items-center gap-6">
+					{/* Show Grid Lines Toggle */}
+					<div className="flex items-center space-x-2">
+						<Switch id="show-grid" defaultChecked />
+						<Label htmlFor="show-grid" className="text-sm text-muted-foreground cursor-pointer">
+							Show Grid Lines
+						</Label>
 					</div>
 				</div>
 			</div>
-		</div>
+			{/* Grid Visualization Area */}
+			<div className="flex-1 overflow-auto p-8">
+				{/* Your grid items will go here */}
+				<div className="grid gap-4" style={{ gridTemplateColumns: '1fr 1fr 1fr' }}>
+					{/* Grid items */}
+				</div>
+			</div>
+		</main>
 	)
 }
