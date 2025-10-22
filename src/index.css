@@ -4,67 +4,77 @@
 
 @layer base {
 	:root {
-		/* Clean, Professional Color Palette */
-		--background: 0 0% 100%;
-		--foreground: 222.2 84% 4.9%;
+		/* Light Mode - Professional Deep Blue Theme */
+		--background: 0 0% 100%; /* white */
+		--foreground: 224 71.4% 4.1%; /* slate-950 */
 
-		--card: 0 0% 100%;
-		--card-foreground: 222.2 84% 4.9%;
+		--card: 0 0% 100%; /* white */
+		--card-foreground: 224 71.4% 4.1%; /* slate-950 */
 
-		--popover: 0 0% 100%;
-		--popover-foreground: 222.2 84% 4.9%;
+		--popover: 0 0% 100%; /* white */
+		--popover-foreground: 224 71.4% 4.1%; /* slate-950 */
 
-		/* Primary - Dark slate as brand color */
-		--primary: 222.2 47.4% 11.2%; /* slate-900 */
+		/* Primary - Indigo 500 */
+		--primary: 234 90% 65%; /* indigo-500 #6366f1 */
 		--primary-foreground: 0 0% 100%; /* white */
 
-		--secondary: 210 40% 96.1%;
-		--secondary-foreground: 222.2 47.4% 11.2%;
+		/* Secondary - Light Gray */
+		--secondary: 220 14.3% 95.9%; /* slate-100 */
+		--secondary-foreground: 224 71.4% 4.1%; /* slate-950 */
 
-		--muted: 210 40% 96.1%;
-		--muted-foreground: 215.4 16.3% 46.9%;
+		/* Muted - Very Light Gray */
+		--muted: 220 14.3% 95.9%; /* slate-100 */
+		--muted-foreground: 220 8.9% 46.1%; /* slate-500 */
 
-		--accent: 217 91% 60%; /* Blue accent for interactive elements */
-		--accent-foreground: 0 0% 100%;
+		/* Accent - Indigo 400 */
+		--accent: 234 89% 74%; /* indigo-400 #818cf8 */
+		--accent-foreground: 0 0% 100%; /* white */
 
-		--destructive: 0 84.2% 60.2%;
-		--destructive-foreground: 210 40% 98%;
+		/* Destructive - Red */
+		--destructive: 0 84.2% 60.2%; /* red-500 */
+		--destructive-foreground: 0 0% 98%; /* white */
 
-		--border: 214.3 31.8% 91.4%;
-		--input: 214.3 31.8% 91.4%;
-		--ring: 217 91% 60%; /* Blue for focus states */
+		/* Borders & Inputs */
+		--border: 220 13% 91%; /* slate-200 */
+		--input: 220 13% 91%; /* slate-200 */
+		--ring: 234 90% 65%; /* indigo-500 - matches primary */
 
 		--radius: 0.5rem;
 	}
 
 	.dark {
-		--background: 222.2 84% 4.9%;
-		--foreground: 210 40% 98%;
+		/* Dark Mode - Inverted with Blue as Primary */
+		--background: 224 71.4% 4.1%; /* slate-950 */
+		--foreground: 210 20% 98%; /* slate-50 */
 
-		--card: 222.2 84% 4.9%;
-		--card-foreground: 210 40% 98%;
+		--card: 222.2 84% 4.9%; /* slate-900 */
+		--card-foreground: 210 20% 98%; /* slate-50 */
 
-		--popover: 222.2 84% 4.9%;
-		--popover-foreground: 210 40% 98%;
+		--popover: 222.2 84% 4.9%; /* slate-900 */
+		--popover-foreground: 210 20% 98%; /* slate-50 */
 
-		--primary: 210 40% 98%;
-		--primary-foreground: 222.2 47.4% 11.2%;
+		--primary: 234 90% 65%; /* indigo-500 #6366f1 - same as light */
+		--primary-foreground: 0 0% 100%; /* white */
 
-		--secondary: 217.2 32.6% 17.5%;
-		--secondary-foreground: 210 40% 98%;
+		/* Secondary - Dark Gray */
+		--secondary: 215 25% 27%; /* slate-700 */
+		--secondary-foreground: 210 20% 98%; /* slate-50 */
 
-		--muted: 217.2 32.6% 17.5%;
-		--muted-foreground: 215 20.2% 65.1%;
+		/* Muted - Darker Gray */
+		--muted: 215 25% 27%; /* slate-700 */
+		--muted-foreground: 217.9 10.6% 64.9%; /* slate-400 */
 
-		--accent: 217.2 32.6% 17.5%;
-		--accent-foreground: 210 40% 98%;
+		--accent: 234 89% 74%; /* indigo-400 #818cf8 - same as light */
+		--accent-foreground: 0 0% 100%; /* white */
 
-		--destructive: 0 62.8% 30.6%;
-		--destructive-foreground: 210 40% 98%;
+		/* Destructive */
+		--destructive: 0 62.8% 30.6%; /* dark red */
+		--destructive-foreground: 0 0% 98%; /* white */
 
-		--border: 217.2 32.6% 17.5%;
-		--input: 217.2 32.6% 17.5%;
-		--ring: 212.7 26.8% 83.9%;
+		/* Borders & Inputs */
+		--border: 215 25% 27%; /* slate-700 */
+		--input: 215 25% 27%; /* slate-700 */
+		--ring: 234 89% 74%; /* indigo-400 */
 	}
 }
 
@@ -83,9 +93,22 @@
 		-moz-osx-font-smoothing: grayscale;
 	}
 
-	/* Ensure inputs have proper backgrounds */
+	/* Fix transparent backgrounds on inputs and selects */
 	input[data-slot='input'] {
-		@apply bg-white dark:bg-slate-900;
+		@apply bg-background;
+	}
+
+	/* Fix select trigger background */
+	[data-radix-select-trigger] {
+		@apply bg-background;
+	}
+}
+
+/* Fixing misbehaving components */
+@layer components {
+	/* Fix select dropdown items hover to use accent properly */
+	[role='option']:focus {
+		@apply bg-accent text-accent-foreground;
 	}
 }
 

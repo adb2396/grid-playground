@@ -47,6 +47,16 @@ export default {
 					foreground: 'hsl(var(--accent-foreground))',
 				},
 
+				// UI elements
+				popover: {
+					DEFAULT: 'hsl(var(--popover))',
+					foreground: 'hsl(var(--popover-foreground))',
+				},
+				card: {
+					DEFAULT: 'hsl(var(--card))',
+					foreground: 'hsl(var(--card-foreground))',
+				},
+
 				// Status
 				destructive: {
 					DEFAULT: 'hsl(var(--destructive))',
@@ -60,13 +70,6 @@ export default {
 					item: '#dbeafe',
 					'item-border': '#93c5fd',
 					selected: '#3b82f6',
-				},
-
-				// Brand colors
-				brand: {
-					DEFAULT: '#0f172a', // slate-900
-					light: '#1e293b', // slate-800
-					dark: '#020617', // slate-950
 				},
 			},
 			borderRadius: {
