@@ -8,10 +8,41 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from '@/components/ui/select'
+import { Button } from '@/components/ui/button'
+import { useGridStore } from '@/stores/gridStore'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import { Plus } from 'lucide-react'
 
 export const ItemsTab = () => {
+	const selectedItem = useGridStore((state) => state.getSelectedItem())
+	const addItem = useGridStore((state) => state.addItem)
+
 	return (
 		<TabsContent value="items" className="space-y-4">
+			<TooltipProvider>
+				<Tooltip>
+					<TooltipTrigger asChild>
+						<span>
+							<Button
+								variant="outline"
+								size="sm"
+								className="w-full"
+								onClick={() => selectedItem && addItem(selectedItem.id)}
+								disabled={!selectedItem?.isGridContainer}
+							>
+								<Plus />
+								Add Item
+							</Button>
+						</span>
+					</TooltipTrigger>
+					{!selectedItem?.isGridContainer && (
+						<TooltipContent>
+							<p>Select a grid container to add an item</p>
+						</TooltipContent>
+					)}
+				</Tooltip>
+			</TooltipProvider>
+
 			{/* Selected Item Properties */}
 			<div className="space-y-2">
 				<Label>Grid Column</Label>
