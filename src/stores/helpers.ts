@@ -74,6 +74,28 @@ export function updateItemInTree(
 }
 
 /**
+ * Update nested styles for an item
+ */
+export function updateItemStyles(
+	items: GridItem[],
+	id: string,
+	styleUpdates: Partial<GridItem['styles']>
+): GridItem[] {
+	return items.map((item) => {
+		if (item.id === id) {
+			return {
+				...item,
+				styles: { ...item.styles, ...styleUpdates },
+			}
+		}
+		if (item.children.length > 0) {
+			return { ...item, children: updateItemStyles(item.children, id, styleUpdates) }
+		}
+		return item
+	})
+}
+
+/**
  * Toggle item as grid container
  */
 export function toggleItemAsGridInTree(items: GridItem[], id: string): GridItem[] {
@@ -106,7 +128,9 @@ export function createGridItem(name: string): GridItem {
 		name,
 		isGridContainer: false,
 		children: [],
-		backgroundColor: '#e0e7ff',
-		minHeight: '100px',
+		styles: {
+			backgroundColor: '#e0e7ff',
+			minHeight: '100px',
+		},
 	}
 }

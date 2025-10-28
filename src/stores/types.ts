@@ -16,6 +16,8 @@ export interface GridPlacement {
 	gridColumnEnd?: string
 	gridRowStart?: string
 	gridRowEnd?: string
+	justifySelf?: string
+	alignSelf?: string
 }
 
 // Grid container properties
@@ -35,38 +37,35 @@ export interface GridContainerProps {
 	alignItems?: string
 }
 
-// Item self-alignment properties
-export interface GridItemAlignment {
-	justifySelf?: string
-	alignSelf?: string
-}
-
-// Sizing properties
-export interface ItemSize {
+export interface VisualStyles {
+	// Layout
 	width?: string
 	height?: string
 	minWidth?: string
 	maxWidth?: string
 	minHeight?: string
 	maxHeight?: string
-}
 
-// Visual styling
-export interface ItemStyle {
+	// Visual
 	backgroundColor?: string
 	border?: string
 	borderRadius?: string
 	padding?: string
 	margin?: string
+
+	// Future: easily add more
+	// boxShadow?: string
+	// opacity?: string
+	// typography?: TypographyStyles  // Can nest further if needed
+	// transform?: TransformStyles
 }
 
 // Combined GridItem type
 export type GridItem = BaseItem &
 	GridPlacement &
-	GridContainerProps &
-	GridItemAlignment &
-	ItemSize &
-	ItemStyle
+	GridContainerProps & {
+		styles: VisualStyles
+	}
 
 // Root grid state
 export interface RootGridState {
@@ -90,8 +89,7 @@ export interface GridActions {
 	updateItem: (id: string, updates: Partial<GridItem>) => void
 	updateGridPlacement: (id: string, placement: Partial<GridPlacement>) => void
 	updateGridContainer: (id: string, props: Partial<GridContainerProps>) => void
-	updateItemSize: (id: string, size: Partial<ItemSize>) => void
-	updateItemStyle: (id: string, style: Partial<ItemStyle>) => void
+	updateStyles: (id: string, styles: Partial<VisualStyles>) => void
 
 	// Toggle
 	toggleItemAsGrid: (id: string) => void

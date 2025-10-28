@@ -1,12 +1,5 @@
 import { create } from 'zustand'
-import type {
-	GridStore,
-	GridItem,
-	GridPlacement,
-	GridContainerProps,
-	ItemSize,
-	ItemStyle,
-} from './types'
+import type { GridStore, GridItem, GridPlacement, GridContainerProps, VisualStyles } from './types'
 import {
 	countAllItems,
 	findItemById,
@@ -15,11 +8,12 @@ import {
 	updateItemInTree,
 	toggleItemAsGridInTree,
 	createGridItem,
+	updateItemStyles,
 } from './helpers'
 
 export const useGridStore = create<GridStore>((set, get) => ({
 	// Initial state
-	grids: [], // Changed from 'items' to 'grids'
+	grids: [],
 	selectedItemId: null,
 	showGridLines: true,
 
@@ -33,19 +27,14 @@ export const useGridStore = create<GridStore>((set, get) => ({
 				isGridContainer: true, // Root items are ALWAYS grids
 				children: [],
 
-				// Default grid properties
-				gridTemplateColumns: '1fr 1fr 1fr',
-				gridTemplateRows: 'auto',
-				gap: '1rem',
-				justifyItems: 'stretch',
-				alignItems: 'stretch',
-
 				// Visual defaults
-				backgroundColor: '#f8fafc',
-				border: '2px dashed #cbd5e1',
-				borderRadius: '8px',
-				padding: '1rem',
-				minHeight: '200px',
+				styles: {
+					backgroundColor: '#f8fafc',
+					border: '2px dashed #cbd5e1',
+					borderRadius: '8px',
+					padding: '16px',
+					minHeight: '200px',
+				},
 			}
 			return { grids: [...state.grids, newGrid] }
 		}),
@@ -91,14 +80,9 @@ export const useGridStore = create<GridStore>((set, get) => ({
 			grids: updateItemInTree(state.grids, id, props),
 		})),
 
-	updateItemSize: (id: string, size: Partial<ItemSize>) =>
+	updateStyles: (id: string, styles: Partial<VisualStyles>) =>
 		set((state) => ({
-			grids: updateItemInTree(state.grids, id, size),
-		})),
-
-	updateItemStyle: (id: string, style: Partial<ItemStyle>) =>
-		set((state) => ({
-			grids: updateItemInTree(state.grids, id, style),
+			grids: updateItemStyles(state.grids, id, styles),
 		})),
 
 	toggleItemAsGrid: (id: string) =>
