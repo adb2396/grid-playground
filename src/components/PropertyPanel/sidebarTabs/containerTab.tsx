@@ -10,24 +10,32 @@ import {
 	SelectValue,
 } from '@/components/ui/select'
 import { useGridStore } from '@/stores/gridStore'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export const ContainerTab = () => {
 	const selectedItem = useGridStore((state) => state.getSelectedItem())
 	const updateGridContainer = useGridStore((state) => state.updateGridContainer)
 
-	// Local state for sliders to show current value
-	const [rowGapValue, setRowGapValue] = useState(16)
-	const [columnGapValue, setColumnGapValue] = useState(16)
-
-	// Only show if a grid container is selected
-	if (!selectedItem?.isGridContainer) {
-		return (
-			<TabsContent value="container" className="space-y-4">
-				<p className="text-sm text-muted-foreground">Select a grid container to edit properties</p>
-			</TabsContent>
-		)
+	// Helper function to parse gap values (handles "16px", "1rem", etc.)
+	const parseGapValue = (gapString: string | undefined, defaultValue = 16): number => {
+		if (!gapString) return defaultValue
+		const parsed = parseInt(gapString)
+		return isNaN(parsed) ? defaultValue : parsed
 	}
+
+	// Local state for sliders to show current value
+	const [rowGapValue, setRowGapValue] = useState(() => parseGapValue(selectedItem?.rowGap, 16))
+	const [columnGapValue, setColumnGapValue] = useState(() =>
+		parseGapValue(selectedItem?.columnGap, 16)
+	)
+
+	// Sync slider values when selected item changes
+	useEffect(() => {
+		if (selectedItem && selectedItem.id) {
+			setRowGapValue(parseGapValue(selectedItem.rowGap, 16))
+			setColumnGapValue(parseGapValue(selectedItem.columnGap, 16))
+		}
+	}, [selectedItem, selectedItem?.id])
 
 	return (
 		<TabsContent
@@ -44,10 +52,10 @@ export const ContainerTab = () => {
 					<Label htmlFor="grid-columns">Template Columns</Label>
 					<Input
 						id="grid-columns"
-						placeholder="1fr 1fr 1fr"
-						value={selectedItem.gridTemplateColumns || ''}
+						placeholder="1fr 1fr"
+						value={selectedItem?.gridTemplateColumns || ''}
 						onChange={(e) =>
-							updateGridContainer(selectedItem.id, {
+							updateGridContainer(selectedItem?.id || '', {
 								gridTemplateColumns: e.target.value,
 							})
 						}
@@ -59,10 +67,10 @@ export const ContainerTab = () => {
 					<Label htmlFor="grid-rows">Template Rows</Label>
 					<Input
 						id="grid-rows"
-						placeholder="auto"
-						value={selectedItem.gridTemplateRows || ''}
+						placeholder="100px auto"
+						value={selectedItem?.gridTemplateRows || ''}
 						onChange={(e) =>
-							updateGridContainer(selectedItem.id, {
+							updateGridContainer(selectedItem?.id || '', {
 								gridTemplateRows: e.target.value,
 							})
 						}
@@ -75,9 +83,9 @@ export const ContainerTab = () => {
 					<Input
 						id="grid-areas"
 						placeholder='"header header" "sidebar main"'
-						value={selectedItem.gridTemplateAreas || ''}
+						value={selectedItem?.gridTemplateAreas || ''}
 						onChange={(e) =>
-							updateGridContainer(selectedItem.id, {
+							updateGridContainer(selectedItem?.id || '', {
 								gridTemplateAreas: e.target.value,
 							})
 						}
@@ -95,9 +103,9 @@ export const ContainerTab = () => {
 					<Input
 						id="gap"
 						placeholder="1rem"
-						value={selectedItem.gap || ''}
+						value={selectedItem?.gap || ''}
 						onChange={(e) =>
-							updateGridContainer(selectedItem.id, {
+							updateGridContainer(selectedItem?.id || '', {
 								gap: e.target.value,
 							})
 						}
@@ -114,7 +122,7 @@ export const ContainerTab = () => {
 						value={[rowGapValue]}
 						onValueChange={(value) => {
 							setRowGapValue(value[0])
-							updateGridContainer(selectedItem.id, {
+							updateGridContainer(selectedItem?.id || '', {
 								rowGap: `${value[0]}px`,
 							})
 						}}
@@ -133,7 +141,7 @@ export const ContainerTab = () => {
 						value={[columnGapValue]}
 						onValueChange={(value) => {
 							setColumnGapValue(value[0])
-							updateGridContainer(selectedItem.id, {
+							updateGridContainer(selectedItem?.id || '', {
 								columnGap: `${value[0]}px`,
 							})
 						}}
@@ -151,9 +159,9 @@ export const ContainerTab = () => {
 				<div className="space-y-2">
 					<Label htmlFor="auto-flow">Auto Flow</Label>
 					<Select
-						value={selectedItem.gridAutoFlow || 'row'}
+						value={selectedItem?.gridAutoFlow || 'row'}
 						onValueChange={(value) =>
-							updateGridContainer(selectedItem.id, {
+							updateGridContainer(selectedItem?.id || '', {
 								gridAutoFlow: value,
 							})
 						}
@@ -175,9 +183,9 @@ export const ContainerTab = () => {
 					<Input
 						id="auto-columns"
 						placeholder="auto"
-						value={selectedItem.gridAutoColumns || ''}
+						value={selectedItem?.gridAutoColumns || ''}
 						onChange={(e) =>
-							updateGridContainer(selectedItem.id, {
+							updateGridContainer(selectedItem?.id || '', {
 								gridAutoColumns: e.target.value,
 							})
 						}
@@ -190,9 +198,9 @@ export const ContainerTab = () => {
 					<Input
 						id="auto-rows"
 						placeholder="auto"
-						value={selectedItem.gridAutoRows || ''}
+						value={selectedItem?.gridAutoRows || ''}
 						onChange={(e) =>
-							updateGridContainer(selectedItem.id, {
+							updateGridContainer(selectedItem?.id || '', {
 								gridAutoRows: e.target.value,
 							})
 						}
@@ -210,9 +218,9 @@ export const ContainerTab = () => {
 				<div className="space-y-2">
 					<Label htmlFor="justify-content">Justify Content</Label>
 					<Select
-						value={selectedItem.justifyContent || 'start'}
+						value={selectedItem?.justifyContent || 'start'}
 						onValueChange={(value) =>
-							updateGridContainer(selectedItem.id, {
+							updateGridContainer(selectedItem?.id || '', {
 								justifyContent: value,
 							})
 						}
@@ -236,9 +244,9 @@ export const ContainerTab = () => {
 				<div className="space-y-2">
 					<Label htmlFor="align-content">Align Content</Label>
 					<Select
-						value={selectedItem.alignContent || 'start'}
+						value={selectedItem?.alignContent || 'start'}
 						onValueChange={(value) =>
-							updateGridContainer(selectedItem.id, {
+							updateGridContainer(selectedItem?.id || '', {
 								alignContent: value,
 							})
 						}
@@ -269,9 +277,9 @@ export const ContainerTab = () => {
 				<div className="space-y-2">
 					<Label htmlFor="justify-items">Justify Items</Label>
 					<Select
-						value={selectedItem.justifyItems || 'stretch'}
+						value={selectedItem?.justifyItems || 'stretch'}
 						onValueChange={(value) =>
-							updateGridContainer(selectedItem.id, {
+							updateGridContainer(selectedItem?.id || '', {
 								justifyItems: value,
 							})
 						}
@@ -292,9 +300,9 @@ export const ContainerTab = () => {
 				<div className="space-y-2">
 					<Label htmlFor="align-items">Align Items</Label>
 					<Select
-						value={selectedItem.alignItems || 'stretch'}
+						value={selectedItem?.alignItems || 'stretch'}
 						onValueChange={(value) =>
-							updateGridContainer(selectedItem.id, {
+							updateGridContainer(selectedItem?.id || '', {
 								alignItems: value,
 							})
 						}
