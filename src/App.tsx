@@ -4,9 +4,11 @@ import { Moon, Sun } from 'lucide-react'
 import { Button } from './components/ui/button'
 import { useEffect, useState } from 'react'
 import { GridContainer } from './components/GridContainer'
+import { CodeOutput } from './components/CodeOutput'
 
 function App() {
 	const [isDark, setIsDark] = useState(false)
+	const [isCodeCollapsed, setIsCodeCollapsed] = useState(true)
 
 	useEffect(() => {
 		if (isDark) {
@@ -37,9 +39,23 @@ function App() {
 				</Button>
 			</header>
 
-			<div className="flex-1 flex">
+			<div className="flex-1 flex overflow-hidden">
 				<PropertyPanel />
-				<GridContainer />
+				<div className="flex-1 flex flex-col overflow-hidden">
+					{/* Grid Visualization (Top 60%) */}
+					<div className="flex-[3] overflow-auto bg-muted/60">
+						<GridContainer />
+					</div>
+					{/* Code Output (Bottom 40%) */}
+					<div
+						className={`transition-all duration-300 ${isCodeCollapsed ? 'flex-none' : 'flex-[2]'} overflow-hidden`}
+					>
+						<CodeOutput
+							isCollapsed={isCodeCollapsed}
+							onToggleCollapse={() => setIsCodeCollapsed(!isCodeCollapsed)}
+						/>
+					</div>
+				</div>
 			</div>
 		</div>
 	)
