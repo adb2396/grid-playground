@@ -6,19 +6,24 @@ import { Switch } from '../ui/switch'
 import { useGridStore } from '@/stores/gridStore'
 import type { GridItem } from '@/stores/types'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip'
-import { findItemById } from '@/stores/helpers'
-import { GridRenderer } from './GridRenderer'
+import { GridRenderer } from './gridRenderer'
 
 export const GridContainer: React.FC = () => {
 	const grids = useGridStore((state) => state.grids) as GridItem[]
 	const selectedItemId = useGridStore((state) => state.selectedItemId)
+	const selectedItem = useGridStore((state) => state.getSelectedItem())
 	const addGrid = useGridStore((state) => state.addGrid)
+	const addItem = useGridStore((state) => state.addItem)
 	const removeItem = useGridStore((state) => state.removeItem)
 	const removeGrid = useGridStore((state) => state.removeGrid)
 	const selectItem = useGridStore((state) => state.selectItem)
 
-	// To check if selectedItemId is a grid container
-	const selectedItem = findItemById(grids, selectedItemId as string)
+	// Grid lines
+	const showGridLines = useGridStore((state) => state.showGridLines)
+	const setShowGridLines = useGridStore((state) => state.setShowGridLines)
+
+	// Check if a grid container is selected for the add button
+	const canAddItem = selectedItem?.isGridContainer
 
 	// Check if selected item is a root grid
 	const isRootGrid = selectedItem && grids.some((grid) => grid.id === selectedItem.id)
@@ -37,17 +42,37 @@ export const GridContainer: React.FC = () => {
 		selectItem(null)
 	}
 
-	console.log('grids', grids)
-
 	return (
 		<main className="flex-1 flex flex-col bg-muted/60">
 			{/* Toolbar */}
 			<div className="h-14 flex items-center justify-between px-4 gap-4">
 				<div className="flex items-center gap-2">
-					<Button size="sm" onClick={addGrid}>
+					<Button size="sm" onClick={addGrid} title="Add Container">
 						<Plus />
 						Add Container
 					</Button>
+					<TooltipProvider>
+						<Tooltip>
+							<TooltipTrigger asChild>
+								<span>
+									<Button
+										variant="outline"
+										size="sm"
+										onClick={() => selectedItem && addItem(selectedItem.id)}
+										disabled={!canAddItem}
+									>
+										<Plus />
+										Add Item
+									</Button>
+								</span>
+							</TooltipTrigger>
+							{!canAddItem && (
+								<TooltipContent>
+									<p>Select a grid container to add an item</p>
+								</TooltipContent>
+							)}
+						</Tooltip>
+					</TooltipProvider>
 					<TooltipProvider>
 						<Tooltip>
 							<TooltipTrigger asChild>
@@ -74,7 +99,7 @@ export const GridContainer: React.FC = () => {
 				<div className="flex items-center gap-6">
 					{/* Show Grid Lines Toggle */}
 					<div className="flex items-center space-x-2">
-						<Switch id="show-grid" defaultChecked />
+						<Switch id="show-grid" checked={showGridLines} onCheckedChange={setShowGridLines} />
 						<Label htmlFor="show-grid" className="text-sm text-muted-foreground cursor-pointer">
 							Show Grid Lines
 						</Label>

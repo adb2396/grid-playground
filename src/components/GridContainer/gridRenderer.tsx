@@ -10,20 +10,34 @@ interface GridRendererProps {
 
 export const GridRenderer = ({ item, level = 0 }: GridRendererProps) => {
 	const selectedItemId = useGridStore((state) => state.selectedItemId)
+	const showGridLines = useGridStore((state) => state.showGridLines)
 	const selectItem = useGridStore((state) => state.selectItem)
 
 	const isSelected = selectedItemId === item.id
 	const itemStyles = useMemo(() => buildGridItemStyles(item), [item])
 
+	// Add visual grid lines using CSS (works with any grid definition)
+	const gridLinesStyle =
+		showGridLines && !item.isGridContainer
+			? {
+					outline: '2px dashed #ef4444',
+					outlineOffset: '-1px',
+				}
+			: {}
+
 	return (
 		<div
 			onClick={(e) => {
 				e.stopPropagation()
-				selectItem(isSelected ? null : item.id)
+				selectItem(item.id)
 			}}
-			style={itemStyles}
+			style={{
+				...itemStyles,
+				...gridLinesStyle,
+			}}
 			className={`
 				relative cursor-pointer transition-all
+				${item.isGridContainer ? 'mb-8' : ''}
 				${isSelected ? 'ring-2 ring-primary ring-offset-2' : 'hover:ring-1 hover:ring-primary/50'}
 			`}
 		>
@@ -40,7 +54,7 @@ export const GridRenderer = ({ item, level = 0 }: GridRendererProps) => {
 
 			{/* Empty state for grid containers */}
 			{item.isGridContainer && item.children.length === 0 && (
-				<div className="flex items-center justify-center text-xs text-muted-foreground">
+				<div className="flex items-center justify-center text-xs text-muted-foreground h-full min-h-[200px]">
 					Empty grid - select and click "Add Item" in the sidebar
 				</div>
 			)}
