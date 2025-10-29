@@ -99,6 +99,9 @@ export interface GridActions {
 
 	// Helper
 	getSelectedItem: () => GridItem | null
+
+	// Reset store
+	resetStore: () => void
 }
 
 export type GridStore = RootGridState & GridActions

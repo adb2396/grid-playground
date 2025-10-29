@@ -15,7 +15,10 @@ export const useGridStore = create<GridStore>((set, get) => ({
 	// Initial state
 	grids: [],
 	selectedItemId: null,
-	showGridLines: true,
+	showGridLines: false,
+
+	// reset store
+	resetStore: () => set({ grids: [], selectedItemId: null, showGridLines: true }),
 
 	// Grid management actions
 	addGrid: () =>
