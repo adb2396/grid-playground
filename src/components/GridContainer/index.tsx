@@ -43,7 +43,7 @@ export const GridContainer: React.FC = () => {
 	}
 
 	return (
-		<main className="flex-1 flex flex-col bg-muted/60">
+		<main className="h-full flex-1 flex flex-col">
 			{/* Toolbar */}
 			<div className="h-14 flex items-center justify-between px-4 gap-4">
 				<div className="flex items-center gap-2">

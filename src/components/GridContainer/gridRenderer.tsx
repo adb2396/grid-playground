@@ -29,7 +29,7 @@ export const GridRenderer = ({ item, level = 0 }: GridRendererProps) => {
 		<div
 			onClick={(e) => {
 				e.stopPropagation()
-				selectItem(item.id)
+				selectItem(isSelected ? null : item.id)
 			}}
 			style={{
 				...itemStyles,
