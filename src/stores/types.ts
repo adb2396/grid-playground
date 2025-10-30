@@ -102,6 +102,8 @@ export interface GridActions {
 
 	// Reset store
 	resetStore: () => void
+
+	loadTemplate: (templateId: string) => void
 }
 
 export type GridStore = RootGridState & GridActions
