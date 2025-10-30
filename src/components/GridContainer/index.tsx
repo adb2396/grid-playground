@@ -1,4 +1,4 @@
-import { Plus, Trash2 } from 'lucide-react'
+import { Plus, Trash2, Sparkles } from 'lucide-react'
 import React from 'react'
 import { Button } from '../ui/button'
 import { Label } from '../ui/label'
@@ -7,6 +7,8 @@ import { useGridStore } from '@/stores/gridStore'
 import type { GridItem } from '@/stores/types'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip'
 import { GridRenderer } from './gridRenderer'
+import { Select, SelectContent, SelectItem, SelectTrigger } from '../ui/select'
+import { gridTemplates } from '@/utils/templates'
 
 export const GridContainer: React.FC = () => {
 	const grids = useGridStore((state) => state.grids) as GridItem[]
@@ -17,6 +19,7 @@ export const GridContainer: React.FC = () => {
 	const removeItem = useGridStore((state) => state.removeItem)
 	const removeGrid = useGridStore((state) => state.removeGrid)
 	const selectItem = useGridStore((state) => state.selectItem)
+	const loadTemplate = useGridStore((state) => state.loadTemplate)
 
 	// Grid lines
 	const showGridLines = useGridStore((state) => state.showGridLines)
@@ -47,6 +50,28 @@ export const GridContainer: React.FC = () => {
 			{/* Toolbar */}
 			<div className="h-14 flex items-center justify-between px-4 gap-4">
 				<div className="flex items-center gap-2">
+					{/* Templates Dropdown */}
+					<Select onValueChange={(value) => loadTemplate(value)}>
+						<SelectTrigger className="w-[200px] bg-background text-foreground">
+							<div className="flex items-center gap-2">
+								<Sparkles className="h-4 w-4 fill-yellow-200 text-yellow-400" />
+								<span>Load Template</span>
+							</div>
+						</SelectTrigger>
+						<SelectContent>
+							{gridTemplates.map((template) => (
+								<SelectItem key={template.id} value={template.id} className="cursor-pointer">
+									<div className="flex flex-col gap-0.5 py-1">
+										<span className="font-medium text-sm">{template.name}</span>
+										<span className="text-xs leading-tight">{template.description}</span>
+									</div>
+								</SelectItem>
+							))}
+						</SelectContent>
+					</Select>
+
+					<div className="h-6 w-px bg-muted-foreground/40" />
+
 					<Button size="sm" onClick={addGrid} title="Add Container">
 						<Plus />
 						Add Container

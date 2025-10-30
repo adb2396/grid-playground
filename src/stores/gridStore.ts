@@ -10,6 +10,7 @@ import {
 	createGridItem,
 	updateItemStyles,
 } from './helpers'
+import { gridTemplates, type GridTemplate } from '@/utils/templates'
 
 export const useGridStore = create<GridStore>((set, get) => ({
 	// Initial state
@@ -100,5 +101,15 @@ export const useGridStore = create<GridStore>((set, get) => ({
 		const state = get()
 		if (!state.selectedItemId) return null
 		return findItemById(state.grids, state.selectedItemId)
+	},
+
+	loadTemplate: (templateId: string) => {
+		const template = gridTemplates.find((t: GridTemplate) => t.id === templateId)
+		if (!template) return
+
+		set({
+			grids: template.grids,
+			selectedItemId: null,
+		})
 	},
 }))
