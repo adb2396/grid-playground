@@ -227,4 +227,14 @@ export const useGridStore = create<GridStore>((set, get) => ({
 			history: { past: [], future: [] }, // Clear history on load
 		})
 	},
+
+	// Auto-save functionality
+	loadStoreFromLocalStorage: (state: { grids: GridItem[]; showGridLines: boolean }) => {
+		set({
+			grids: state.grids,
+			showGridLines: state.showGridLines,
+			selectedItemId: null,
+			history: { past: [], future: [] },
+		})
+	},
 }))
