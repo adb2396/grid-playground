@@ -9,6 +9,8 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/
 import { GridRenderer } from './gridRenderer'
 import { Select, SelectContent, SelectItem, SelectTrigger } from '../ui/select'
 import { gridTemplates } from '@/utils/templates'
+import { UndoRedoControls } from '../UndoRedoControls'
+import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts'
 
 export const GridContainer: React.FC = () => {
 	const grids = useGridStore((state) => state.grids) as GridItem[]
@@ -30,6 +32,8 @@ export const GridContainer: React.FC = () => {
 
 	// Check if selected item is a root grid
 	const isRootGrid = selectedItem && grids.some((grid) => grid.id === selectedItem.id)
+
+	useKeyboardShortcuts()
 
 	const handleDelete = () => {
 		if (!selectedItemId) return
@@ -122,6 +126,7 @@ export const GridContainer: React.FC = () => {
 					</TooltipProvider>
 				</div>
 				<div className="flex items-center gap-6">
+					<UndoRedoControls />
 					{/* Show Grid Lines Toggle */}
 					<div className="flex items-center space-x-2">
 						<Switch id="show-grid" checked={showGridLines} onCheckedChange={setShowGridLines} />

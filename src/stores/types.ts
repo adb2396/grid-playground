@@ -72,6 +72,12 @@ export interface RootGridState {
 	grids: GridItem[]
 	selectedItemId: string | null
 	showGridLines: boolean
+
+	// History
+	history: {
+		past: GridItem[][]
+		future: GridItem[][]
+	}
 }
 
 // Actions
@@ -104,6 +110,13 @@ export interface GridActions {
 	resetStore: () => void
 
 	loadTemplate: (templateId: string) => void
+
+	// History Actions
+	undo: () => void
+	redo: () => void
+	canUndo: () => boolean
+	canRedo: () => boolean
+	_saveToHistory: () => void
 }
 
 export type GridStore = RootGridState & GridActions
