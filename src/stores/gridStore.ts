@@ -209,4 +209,22 @@ export const useGridStore = create<GridStore>((set, get) => ({
 			selectedItemId: null,
 		})
 	},
+
+	// Share functionality
+	getShareableState: () => {
+		const state = get()
+		return {
+			grids: state.grids,
+			showGridLines: state.showGridLines,
+		}
+	},
+
+	loadFromShareableState: (sharedState: { grids: GridItem[]; showGridLines: boolean }) => {
+		set({
+			grids: sharedState.grids,
+			selectedItemId: null,
+			showGridLines: sharedState.showGridLines,
+			history: { past: [], future: [] }, // Clear history on load
+		})
+	},
 }))

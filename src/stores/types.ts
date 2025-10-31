@@ -117,6 +117,10 @@ export interface GridActions {
 	canUndo: () => boolean
 	canRedo: () => boolean
 	_saveToHistory: () => void
+
+	// Share functionality
+	getShareableState: () => { grids: GridItem[]; showGridLines: boolean }
+	loadFromShareableState: (sharedState: { grids: GridItem[]; showGridLines: boolean }) => void
 }
 
 export type GridStore = RootGridState & GridActions
