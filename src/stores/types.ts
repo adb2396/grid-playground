@@ -121,6 +121,9 @@ export interface GridActions {
 	// Share functionality
 	getShareableState: () => { grids: GridItem[]; showGridLines: boolean }
 	loadFromShareableState: (sharedState: { grids: GridItem[]; showGridLines: boolean }) => void
+
+	// Auto Save
+	loadStoreFromLocalStorage: (state: { grids: GridItem[]; showGridLines: boolean }) => void
 }
 
 export type GridStore = RootGridState & GridActions

@@ -1,6 +1,6 @@
 import './App.css'
 import { PropertyPanel } from '@/components/PropertyPanel'
-import { Moon, Sun } from 'lucide-react'
+import { CheckCircle2, Moon, Sun } from 'lucide-react'
 import { Button } from './components/ui/button'
 import { useEffect, useState } from 'react'
 import { GridContainer } from './components/GridContainer'
@@ -8,22 +8,57 @@ import { CodeOutput } from './components/CodeOutput'
 import { getStateFromURL } from './utils/shareUtils'
 import { useGridStore } from './stores/gridStore'
 import { ShareButton } from './components/common/ShareButton'
+import { isLocalStorageAvailable, loadFromLocalStorage } from './utils/storageUtils'
+import { toast } from 'sonner'
+import { useAutoSave } from './hooks/useAutoSave'
 
 function App() {
 	const [isDark, setIsDark] = useState(false)
 	const [isCodeCollapsed, setIsCodeCollapsed] = useState(true)
 
 	const loadFromShareableState = useGridStore((state) => state.loadFromShareableState)
+	const loadStoreFromLocalStorage = useGridStore((state) => state.loadStoreFromLocalStorage)
 
-	// Load state from URL on mount
+	// Auto-save to localStorage (debounced 500ms)
+	useAutoSave(500)
+
+	// Load state on mount (priority: URL > localStorage)
 	useEffect(() => {
+		// Priority 1: Check URL for shared state
+		let timeoutRef: number | null = null
 		const sharedState = getStateFromURL()
 		if (sharedState) {
 			loadFromShareableState(sharedState)
-			// Optional: Clean URL after loading
+			// Clean URL after loading
 			window.history.replaceState({}, '', window.location.pathname)
+			return // Don't load from localStorage if URL has state
 		}
-	}, [loadFromShareableState])
+
+		// Priority 2: Check localStorage for saved state
+		if (isLocalStorageAvailable()) {
+			const savedState = loadFromLocalStorage()
+			if (savedState && savedState.grids.length > 0) {
+				loadStoreFromLocalStorage({
+					grids: savedState.grids,
+					showGridLines: savedState.showGridLines,
+				})
+				// Delay toast slightly to ensure Toaster is mounted
+				timeoutRef = setTimeout(() => {
+					toast.success('Work restored from last session', {
+						description: 'Your previous state has been recovered.',
+						duration: 3000,
+						icon: <CheckCircle2 className="h-5 w-5 text-green-500" />,
+					})
+				}, 100)
+			}
+		}
+
+		return () => {
+			if (timeoutRef) {
+				clearTimeout(timeoutRef)
+			}
+		}
+	}, [loadFromShareableState, loadStoreFromLocalStorage])
 
 	useEffect(() => {
 		if (isDark) {
