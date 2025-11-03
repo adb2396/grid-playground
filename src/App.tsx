@@ -1,6 +1,6 @@
 import './App.css'
 import { PropertyPanel } from '@/components/PropertyPanel'
-import { CheckCircle2, Moon, Sun } from 'lucide-react'
+import { CheckCircle2, Github, Moon, Sun } from 'lucide-react'
 import { Button } from './components/ui/button'
 import { useEffect, useState } from 'react'
 import { GridContainer } from './components/GridContainer'
@@ -89,6 +89,23 @@ function App() {
 						{isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
 					</Button>
 					<ShareButton />
+
+					{/* GitHub Link */}
+					<Button
+						variant="ghost"
+						size="icon"
+						asChild
+						aria-label="View on GitHub"
+						title="View on GitHub"
+					>
+						<a
+							href="https://github.com/adb2396/grid-playground"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							<Github className="h-5 w-5" />
+						</a>
+					</Button>
 				</div>
 			</header>
 

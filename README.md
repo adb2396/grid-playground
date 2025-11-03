@@ -10,7 +10,7 @@
 [![Zustand](https://img.shields.io/badge/Zustand-5.0.8-FF6B6B?logo=redux)](https://github.com/pmndrs/zustand)
 [![Vitest](https://img.shields.io/badge/Vitest-4.0.5-6E9F18?logo=vitest)](https://vitest.dev/)
 
-[🚀 Live Demo](#) • [📖 Documentation](#features) • [🐛 Report Bug](#) • [💡 Request Feature](#)
+[🚀 Live Demo](https://css-grid-playground.vercel.app/) • [📖 Documentation](#features) • [🐛 Report Bug](#) • [💡 Request Feature](#)
 
 </div>
 
@@ -65,7 +65,7 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/grid-playground.git
+git clone https://github.com/adb2396/grid-playground
 cd grid-playground
 
 # Install dependencies
@@ -386,6 +386,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Made with ❤️ for learning CSS Grid**
 
-[⭐ Star this repo](#) • [🐛 Report Bug](#) • [💡 Request Feature](#)
+[⭐ Star this repo](https://github.com/adb2396/grid-playground) • [🐛 Report Bug](#) • [💡 Request Feature](#)
 
 </div>
