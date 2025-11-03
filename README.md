@@ -1,98 +1,68 @@
-# CSS Grid Playground
+# 🎨 CSS Grid Playground
 
-An interactive web application for learning and experimenting with CSS Grid through real-time visualization and code generation.
+<div align="center">
 
-## 🚀 Overview
+**An interactive web application for learning and experimenting with CSS Grid through real-time visualization and code generation.**
 
-CSS Grid Playground is a React-based educational tool that allows users to:
-- Create and customize CSS Grid containers
-- Add and position grid items
-- Visualize grid lines and structure
-- Generate production-ready CSS code
-- Learn through hands-on experimentation
+[![React](https://img.shields.io/badge/React-19.1.1-61DAFB?logo=react)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-3178C6?logo=typescript)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-7.1.7-646CFF?logo=vite)](https://vitejs.dev/)
+[![Zustand](https://img.shields.io/badge/Zustand-5.0.8-FF6B6B?logo=redux)](https://github.com/pmndrs/zustand)
+[![Vitest](https://img.shields.io/badge/Vitest-4.0.5-6E9F18?logo=vitest)](https://vitest.dev/)
 
-## 🛠️ Tech Stack
+[🚀 Live Demo](#) • [📖 Documentation](#features) • [🐛 Report Bug](#) • [💡 Request Feature](#)
 
-- **Frontend Framework**: React 18+ with TypeScript
-- **Build Tool**: Vite
-- **Styling**: Tailwind CSS (with custom configuration)
-- **State Management**: Zustand
-- **Code Editor**: Monaco Editor (for code display)
-- **UI Components**: Custom components with Radix UI primitives
-- **Icons**: Lucide React
-- **Animations**: Framer Motion
+</div>
 
-## 📁 Project Structure
+---
 
-```
-grid-playground/
-├── src/
-│   ├── components/
-│   │   ├── GridContainer/      # Main grid visualization component
-│   │   ├── PropertyPanel/      # Grid property controls
-│   │   ├── CodeOutput/         # CSS code generation display
-│   │   ├── GridOverlay/        # Visual grid lines overlay
-│   │   └── common/             # Reusable UI components
-│   ├── hooks/                  # Custom React hooks
-│   ├── stores/                 # Zustand state management
-│   ├── utils/                  # Helper functions
-│   ├── types/                  # TypeScript type definitions
-│   ├── styles/                 # Global styles and Tailwind config
-│   └── App.tsx                 # Main application component
-├── public/                     # Static assets
-└── ...config files
-```
+## ✨ Features
 
-## 🏗️ Architecture
+### 🎯 Core Functionality
 
-### State Management
-```typescript
-// stores/gridStore.ts
-interface GridState {
-  container: GridContainer;
-  items: GridItem[];
-  selectedItemId: string | null;
-  showOverlay: boolean;
-  // ... other state
-}
-```
+- **🔷 Multiple Grid Containers** - Create multiple independent grid containers side-by-side
+- **🌳 Nested Grids** - Transform any item into a grid container with unlimited nesting depth
+- **📐 Grid Properties** - Full control over grid template columns/rows, gaps, alignment, and auto-flow
+- **📍 Item Placement** - Precise control over grid item positioning (column/row start/end, justify/align self)
+- **🎨 Visual Styling** - Customize appearance with width, height, background color, borders, padding, and border radius
 
-### Key Components
+### 🛠️ Developer Tools
 
-1. **GridContainer Component**
-   - Renders the actual CSS Grid
-   - Handles item selection and manipulation
-   - Applies all grid properties dynamically
+- **👁️ Visual Grid Lines** - Toggle grid line visualization (similar to browser DevTools) for better understanding
+- **💻 Code Generation** - Real-time HTML and CSS code generation with syntax highlighting
+- **📋 Multiple Output Formats** - Export CSS only, HTML only, or complete HTML page
+- **📦 Preset Templates** - Quick start with 5 pre-built layouts:
+  - Holy Grail Layout
+  - Dashboard Layout
+  - Gallery Layout
+  - Card Layout
+  - Magazine Layout
 
-2. **PropertyPanel Component**
-   - Container properties section
-   - Item properties section
-   - Organized control groups
+### 🔄 State Management
 
-3. **CodeOutput Component**
-   - Real-time CSS generation
-   - Syntax highlighting
-   - Copy functionality
+- **↩️ Undo/Redo** - Full history support with keyboard shortcuts (Cmd+Z, Cmd+Shift+Z, Cmd+Y)
+- **💾 Auto-Save** - Automatic state persistence to localStorage with debounced saves
+- **🔗 Share Links** - Generate shareable URLs with compressed state encoding
+- **📱 State Restoration** - Auto-restore previous session on page load
 
-4. **GridOverlay Component**
-   - Visual grid lines
-   - Row/column numbering
-   - Gap visualization
+### 🎨 User Experience
 
-### Data Flow
-```
-User Input → Property Panel → Store → Grid Container → Visual Update
-                                 ↓
-                           Code Generator → Code Output
-```
+- **🌓 Dark Mode** - Toggle between light and dark themes
+- **⌨️ Keyboard Shortcuts** - Power user workflow with keyboard navigation
+- **📱 Responsive Design** - Works seamlessly on desktop and tablet devices
+- **🎯 Intuitive UI** - Clean, organized property panels with tabbed interface
 
-## 🚦 Getting Started
+---
+
+## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js 18+
-- Yarn or npm
+
+- **Node.js** 18+
+- **Yarn** or **npm**
 
 ### Installation
+
 ```bash
 # Clone the repository
 git clone https://github.com/yourusername/grid-playground.git
@@ -105,119 +75,317 @@ yarn install
 yarn dev
 ```
 
-### Development Commands
-```bash
-# Start dev server
-yarn dev
+Open [http://localhost:5173](http://localhost:5173) to view the app.
 
-# Build for production
-yarn build
+---
 
-# Preview production build
-yarn preview
+## ⌨️ Keyboard Shortcuts
 
-# Run linting
-yarn lint
+| Shortcut               | Action           |
+| ---------------------- | ---------------- |
+| `Cmd/Ctrl + Z`         | Undo last action |
+| `Cmd/Ctrl + Shift + Z` | Redo last action |
+| `Cmd/Ctrl + Y`         | Redo last action |
 
-# Run type checking
-yarn type-check
+---
+
+## 🛠️ Tech Stack
+
+### Core
+
+- **[React 19.1.1](https://reactjs.org/)** - UI library
+- **[TypeScript 5.9.3](https://www.typescriptlang.org/)** - Type safety
+- **[Vite 7.1.7](https://vitejs.dev/)** - Build tool and dev server
+
+### State & Data
+
+- **[Zustand 5.0.8](https://github.com/pmndrs/zustand)** - Lightweight state management
+- **[lz-string](https://github.com/pieroxy/lz-string)** - URL compression for sharing
+
+### UI Components
+
+- **[Radix UI](https://www.radix-ui.com/)** - Accessible component primitives
+- **[Tailwind CSS 3.4.0](https://tailwindcss.com/)** - Utility-first CSS framework
+- **[Lucide React](https://lucide.dev/)** - Icon library
+
+### Developer Experience
+
+- **[Vitest 4.0.5](https://vitest.dev/)** - Unit testing framework
+- **[React Testing Library](https://testing-library.com/react)** - Component testing utilities
+- **[ESLint](https://eslint.org/)** - Code linting
+- **[Prettier](https://prettier.io/)** - Code formatting
+
+### Additional Libraries
+
+- **[react-syntax-highlighter](https://github.com/react-syntax-highlighter/react-syntax-highlighter)** - Code syntax highlighting
+- **[sonner](https://sonner.emilkowal.ski/)** - Toast notifications
+
+---
+
+## 📁 Project Structure
+
+```
+grid-playground/
+├── src/
+│   ├── components/
+│   │   ├── CodeOutput/              # Code generation display panel
+│   │   ├── GridContainer/           # Main grid visualization area
+│   │   │   ├── index.tsx           # Container with toolbar
+│   │   │   └── gridRenderer.tsx   # Recursive grid rendering
+│   │   ├── PropertyPanel/          # Left sidebar with controls
+│   │   │   ├── index.tsx
+│   │   │   └── sidebarTabs/
+│   │   │       ├── index.tsx       # Tab management
+│   │   │       ├── containerTab.tsx    # Container properties
+│   │   │       ├── itemsTab.tsx         # Item placement properties
+│   │   │       └── appearanceTab.tsx   # Visual styling
+│   │   ├── UndoRedoControls/       # Undo/Redo buttons
+│   │   ├── common/
+│   │   │   └── ShareButton/        # Share link functionality
+│   │   └── ui/                     # shadcn/ui components
+│   ├── hooks/
+│   │   ├── useAutoSave.ts         # Debounced localStorage saves
+│   │   ├── useKeyboardShortcuts.ts # Global keyboard shortcuts
+│   │   └── use-mobile.ts          # Mobile detection
+│   ├── stores/
+│   │   ├── types.ts               # TypeScript interfaces
+│   │   ├── helpers.ts             # Tree manipulation utilities
+│   │   ├── gridStore.ts           # Zustand store
+│   │   └── __tests__/
+│   │       └── gridStore.test.ts  # Unit tests (17 tests)
+│   ├── utils/
+│   │   ├── codeGeneratorUtils.ts  # CSS/HTML code generation
+│   │   ├── shareUtils.ts          # URL encode/decode
+│   │   ├── storageUtils.ts       # localStorage utilities
+│   │   ├── styleBuilder.ts       # Inline style builder
+│   │   └── templates.ts          # Preset grid layouts
+│   ├── test/
+│   │   └── setup.ts              # Vitest configuration
+│   ├── App.tsx                    # Main app component
+│   ├── main.tsx                   # Entry point
+│   └── index.css                  # Global styles & CSS variables
+├── public/                        # Static assets
+├── vitest.config.ts              # Test configuration
+└── package.json
 ```
 
-## 💻 Development Guidelines
+---
 
-### Component Structure
+## 🏗️ Architecture
+
+### State Management
+
+The application uses **Zustand** for state management with a nested tree structure:
+
 ```typescript
-// Example component structure
-interface GridItemProps {
-  id: string;
-  gridArea?: string;
-  children?: React.ReactNode;
-  isSelected?: boolean;
-  onSelect?: (id: string) => void;
+interface RootGridState {
+	grids: GridItem[] // Array of root-level grid containers
+	selectedItemId: string | null // Currently selected item
+	showGridLines: boolean // Grid lines visibility
+	history: {
+		past: GridItem[][] // Undo history (max 50 states)
+		future: GridItem[][] // Redo history
+	}
 }
-
-export const GridItem: React.FC<GridItemProps> = ({ 
-  id, 
-  gridArea, 
-  children, 
-  isSelected, 
-  onSelect 
-}) => {
-  // Component logic
-};
 ```
 
-### Styling Guidelines
-- Use Tailwind CSS utilities
-- Follow custom theme configuration
-- Component-specific styles in CSS modules when needed
+### GridItem Structure
 
-### State Management Best Practices
+Each `GridItem` is a composable type that includes:
+
 ```typescript
-// Use Zustand slices for organization
-const useGridStore = create<GridState>((set, get) => ({
-  // State
-  container: defaultContainer,
-  
-  // Actions
-  updateContainerProperty: (property, value) => set(state => ({
-    container: { ...state.container, [property]: value }
-  })),
-}));
+type GridItem = BaseItem & // id, name, isGridContainer, children
+	GridPlacement & // gridColumn, gridRow, justifySelf, alignSelf
+	GridContainerProps & { styles: VisualStyles } // gridTemplateColumns, gap, etc. // width, height, backgroundColor, etc.
 ```
 
-## 🧪 Testing Strategy
+### Key Features
 
-- **Unit Tests**: Jest + React Testing Library
-- **Integration Tests**: Testing component interactions
-- **E2E Tests**: Playwright for user workflows
-- **Visual Tests**: Storybook for component library
+- **Nested Grids**: Any item can become a grid container (`isGridContainer: true`)
+- **Multiple Root Grids**: Support for multiple independent grid containers
+- **Recursive Operations**: All tree operations (add, remove, update) work recursively
+- **History Management**: Manual undo/redo with 50-state limit
+
+---
+
+## 🧪 Testing
+
+The project uses **Vitest** and **React Testing Library** for unit testing.
+
+### Run Tests
+
+```bash
+# Run tests in watch mode
+yarn test
+
+# Run tests once
+yarn test:run
+
+# Run tests with UI
+yarn test:ui
+
+# Run tests with coverage
+yarn test:coverage
+```
+
+### Test Coverage
+
+Current test suite includes **17 tests** covering:
+
+- ✅ Grid Management (add/remove grids)
+- ✅ Item Management (add items)
+- ✅ Updates (placement, container, styles, selection)
+- ✅ Undo/Redo (basic flow and edge cases)
+- ✅ Template Loading
+- ✅ Share State (get/load shareable state)
+
+---
+
+## 📜 Available Scripts
+
+```bash
+# Development
+yarn dev              # Start development server
+yarn build            # Build for production
+yarn preview          # Preview production build
+
+# Code Quality
+yarn lint             # Run ESLint
+yarn lint:fix         # Fix ESLint errors
+yarn type-check       # Run TypeScript type checking
+yarn format           # Format code with Prettier
+yarn format:check     # Check code formatting
+
+# Testing
+yarn test             # Run tests in watch mode
+yarn test:run         # Run tests once
+yarn test:ui          # Run tests with UI
+yarn test:coverage    # Run tests with coverage
+```
+
+---
+
+## 🎨 Usage Examples
+
+### Creating a Grid Container
+
+1. Click **"Add Container"** button in the toolbar
+2. Select the container to edit its properties
+3. Configure grid template columns/rows, gaps, and alignment
+
+### Adding Grid Items
+
+1. Select a grid container
+2. Click **"Add Item"** button
+3. Configure item placement using the "Items" tab
+4. Customize appearance in the "Appearance" tab
+
+### Creating Nested Grids
+
+1. Add an item to a grid container
+2. Select the item
+3. Toggle **"Is Grid Container"** in the Container tab
+4. The item becomes a nested grid - add items inside it!
+
+### Using Templates
+
+1. Click **"Load Template"** dropdown in the toolbar
+2. Select a template (Holy Grail, Dashboard, etc.)
+3. Template loads with pre-configured layout
+
+### Sharing Your Work
+
+1. Click **"Share"** button in the header
+2. Shareable URL is copied to clipboard
+3. Share the URL - it contains the full grid state
+
+---
+
+## 🔄 State Persistence
+
+### Auto-Save
+
+- **Automatic**: State is saved to `localStorage` with 500ms debounce
+- **Auto-Restore**: Previous session automatically restored on page load
+- **Toast Notification**: Visual feedback when state is restored
+
+### Share Links
+
+- **Compressed**: State is compressed using `lz-string` for shorter URLs
+- **Complete State**: Includes all grids and settings
+- **No Server**: Everything encoded in the URL itself
+
+---
 
 ## 🎨 Design System
 
 ### Colors
-- Primary: CSS Grid blue (#1e40af)
-- Secondary: Grid lines (#e5e7eb)
-- Accent: Selected items (#3b82f6)
-- Background: Light gray (#f9fafb)
+
+- **Primary**: CSS Grid blue (`#1e40af`)
+- **Secondary**: Grid lines (`#ef4444` - red outline)
+- **Background**: Light gray (`#f9fafb`)
 
 ### Typography
-- Headings: Inter font family
-- Code: JetBrains Mono
-- Body: System font stack
+
+- **Headings**: Inter font family
+- **Code**: JetBrains Mono (via syntax highlighter)
+- **Body**: System font stack
 
 ### Spacing
+
 - Base unit: 4px
 - Component padding: 16px
-- Grid gaps: 8px, 16px, 24px
+- Grid gaps: Configurable via UI
 
-## 📦 Build
-
-### Build Process
-```bash
-# Production build
-yarn build
-
-# Analyze bundle size
-yarn build --analyze
-```
-
-### Environment Variables
-```env
-VITE_APP_VERSION=1.0.0
-VITE_ANALYTICS_ID=your-analytics-id
-```
+---
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Open Pull Request
+Contributions are welcome! Please follow these steps:
+
+1. **Fork the repository**
+2. **Create a feature branch** (`git checkout -b feature/amazing-feature`)
+3. **Make your changes** following the code standards below
+4. **Commit changes** using conventional commits (`git commit -m 'feat: add amazing feature'`)
+5. **Push to branch** (`git push origin feature/amazing-feature`)
+6. **Open a Pull Request**
 
 ### Code Standards
-- ESLint configuration for code quality
-- Prettier for code formatting
-- Husky pre-commit hooks
-- Conventional commits
+
+- ✅ **ESLint** - Code quality and consistency
+- ✅ **Prettier** - Automatic code formatting
+- ✅ **TypeScript** - Strict type checking
+- ✅ **Conventional Commits** - Standardized commit messages
+- ✅ **Pre-commit Hooks** - Automatic linting and formatting
+
+### Git Hooks
+
+The project uses `simple-git-hooks` and `lint-staged` for:
+
+- Pre-commit: Run ESLint and Prettier on staged files
+- Commit-msg: Validate commit message format
+
+---
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 🙏 Acknowledgments
+
+- Built with [React](https://reactjs.org/) and [Vite](https://vitejs.dev/)
+- UI components from [Radix UI](https://www.radix-ui.com/)
+- Icons from [Lucide](https://lucide.dev/)
+- Inspired by browser DevTools grid visualization
+
+---
+
+<div align="center">
+
+**Made with ❤️ for learning CSS Grid**
+
+[⭐ Star this repo](#) • [🐛 Report Bug](#) • [💡 Request Feature](#)
+
+</div>
